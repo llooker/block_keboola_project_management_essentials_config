@@ -1,7 +1,7 @@
 connection: "keboola_block_asana"
 
 # include all the views
-include: "/views/**/*.view"
+include: "/*.view"
 
 datagroup: project_management_asana_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
