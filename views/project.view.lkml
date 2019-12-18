@@ -1,0 +1,84 @@
+view: project {
+  sql_table_name: WORKSPACE_557790397.PROJECT ;;
+  drill_fields: [project_id]
+
+  dimension: project_id {
+    primary_key: yes
+    type: string
+    sql: ${TABLE}."PROJECT_ID" ;;
+  }
+
+  dimension: archived {
+    type: string
+    sql: ${TABLE}."ARCHIVED" ;;
+  }
+
+  dimension_group: created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}."CREATED_AT" ;;
+  }
+
+  dimension_group: due {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}."DUE_DATE" ;;
+  }
+
+  dimension: owner {
+    type: string
+    sql: ${TABLE}."OWNER" ;;
+  }
+
+  dimension: project {
+    type: string
+    sql: ${TABLE}."PROJECT" ;;
+  }
+
+  dimension: public {
+    type: string
+    sql: ${TABLE}."PUBLIC" ;;
+  }
+
+  dimension: status {
+    type: string
+    sql: ${TABLE}."STATUS" ;;
+  }
+
+  dimension: status_text {
+    type: string
+    sql: ${TABLE}."STATUS_TEXT" ;;
+  }
+
+  dimension: url {
+    type: string
+    sql: ${TABLE}."URL" ;;
+  }
+
+  dimension: workspace {
+    type: string
+    sql: ${TABLE}."WORKSPACE" ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [project_id, project_snapshot.count, project_user.count, task.count]
+  }
+}
