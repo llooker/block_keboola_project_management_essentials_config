@@ -21,8 +21,8 @@ view: task {
   }
 
   dimension: completed {
-    type: string
-    sql: ${TABLE}."COMPLETED" ;;
+    type: yesno
+    sql: ${TABLE}."COMPLETED" = 'true' ;;
   }
 
   dimension_group: created_at {

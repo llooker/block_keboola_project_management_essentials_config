@@ -11,8 +11,8 @@ view: project {
   }
 
   dimension: archived {
-    type: string
-    sql: ${TABLE}."ARCHIVED" ;;
+    type: yesno
+    sql: ${TABLE}."ARCHIVED" = 'true' ;;
   }
 
   dimension_group: created_at {
