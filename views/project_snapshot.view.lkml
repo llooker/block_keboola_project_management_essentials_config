@@ -1,14 +1,31 @@
 view: project_snapshot {
   sql_table_name: WORKSPACE_557790397.PROJECT_SNAPSHOT ;;
 
-  dimension: days_in_previous_status {
-    type: number
-    sql: ${TABLE}."DAYS_IN_PREVIOUS_STATUS" ;;
+  dimension: project_snapshot_id {
+    label: "Project Snapshot ID"
+    type:  string
+    sql: ${TABLE}."PROJECT_ID"||'_'||${TABLE}."SNAPSHOT_DATE" ;;
+    primary_key: yes
   }
 
-  dimension: days_in_status {
-    type: number
-    sql: ${TABLE}."DAYS_IN_STATUS" ;;
+  dimension: project_id {
+    type: string
+    hidden: yes
+    sql: ${TABLE}."PROJECT_ID" ;;
+  }
+
+  dimension_group: snapshot {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    sql: ${TABLE}."SNAPSHOT_DATE" ;;
   }
 
   dimension_group: due {
@@ -24,6 +41,20 @@ view: project_snapshot {
     convert_tz: no
     datatype: date
     sql: ${TABLE}."DUE_DATE" ;;
+  }
+
+  dimension_group: previous_due {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    sql: ${TABLE}."PREVIOUS_DUE_DATE" ;;
   }
 
   dimension: due_date_change {
@@ -61,21 +92,6 @@ view: project_snapshot {
     sql: ${TABLE}."OWNER_CHANGE" ;;
   }
 
-  dimension_group: previous_due {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}."PREVIOUS_DUE_DATE" ;;
-  }
-
   dimension: previous_owner {
     type: string
     sql: ${TABLE}."PREVIOUS_OWNER" ;;
@@ -84,27 +100,6 @@ view: project_snapshot {
   dimension: previous_status {
     type: string
     sql: ${TABLE}."PREVIOUS_STATUS" ;;
-  }
-
-  dimension: project_id {
-    type: string
-    # hidden: yes
-    sql: ${TABLE}."PROJECT_ID" ;;
-  }
-
-  dimension_group: snapshot {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}."SNAPSHOT_DATE" ;;
   }
 
   dimension: status {
@@ -122,8 +117,33 @@ view: project_snapshot {
     sql: ${TABLE}."STATUS_TEXT" ;;
   }
 
+  dimension: days_in_status_dimension {
+    hidden: yes
+    type: number
+    sql: ${TABLE}."DAYS_IN_STATUS" ;;
+  }
+
+  dimension: days_in_previous_status_dimension {
+    hidden: yes
+    type: number
+    sql: ${TABLE}."DAYS_IN_PREVIOUS_STATUS" ;;
+  }
+
+  measure: days_in_status {
+    type: average
+    sql: ${days_in_status_dimension} ;;
+    value_format: "#,##0"
+  }
+
+  measure: days_in_previous_status {
+    type: average
+    sql: ${days_in_previous_status_dimension} ;;
+    value_format: "#,##0"
+  }
+
   measure: count {
+    label: "Project Snapshots"
     type: count
-    drill_fields: [project.project_id]
+    drill_fields: [project.project_id, project.project]
   }
 }

@@ -10,84 +10,51 @@ datagroup: project_management_asana_default_datagroup {
 
 persist_with: project_management_asana_default_datagroup
 
-explore: project {}
-
-explore: project_snapshot {
-  join: project {
+explore: project {
+  join: project_member {
     type: left_outer
-    sql_on: ${project_snapshot.project_id} = ${project.project_id} ;;
-    relationship: many_to_one
+    sql_on: ${project.project_id} = ${project_member.project_id} ;;
+    relationship: one_to_many
   }
-}
 
-explore: project_user {
-  join: project {
+  join: owner {
     type: left_outer
-    sql_on: ${project_user.project_id} = ${project.project_id} ;;
+    sql_on: ${project_member.user_id} = ${owner.user_id} ;;
     relationship: many_to_one
   }
 
-  join: user {
+  join: project_snapshot {
     type: left_outer
-    sql_on: ${project_user.user_id} = ${user.user_id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: task {
-  join: project {
-    type: left_outer
-    sql_on: ${task.project_id} = ${project.project_id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: task_snapshot {
-  join: task {
-    type: left_outer
-    sql_on: ${task_snapshot.task_id} = ${task.task_id} ;;
-    relationship: many_to_one
-  }
-
-  join: project {
-    type: left_outer
-    sql_on: ${task.project_id} = ${project.project_id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: task_tag {
-  join: task {
-    type: left_outer
-    sql_on: ${task_tag.task_id} = ${task.task_id} ;;
-    relationship: many_to_one
-  }
-
-  join: project {
-    type: left_outer
-    sql_on: ${task.project_id} = ${project.project_id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: task_user {
-  join: user {
-    type: left_outer
-    sql_on: ${task_user.user_id} = ${user.user_id} ;;
-    relationship: many_to_one
+    sql_on: ${project.project_id} = ${project_snapshot.project_id} ;;
+    relationship: one_to_many
   }
 
   join: task {
     type: left_outer
-    sql_on: ${task_user.task_id} = ${task.task_id} ;;
+    sql_on: ${project.project_id} = ${task.project_id} ;;
+    relationship: one_to_many
+  }
+
+  join: task_follower {
+    type: left_outer
+    sql_on: ${task.task_id} = ${task_follower.task_id} ;;
     relationship: many_to_one
   }
 
-  join: project {
+  join: task_tag {
     type: left_outer
-    sql_on: ${task.project_id} = ${project.project_id} ;;
-    relationship: many_to_one
+    sql_on: ${task.task_id} = ${task_tag.task_id} ;;
+    relationship: one_to_many
+  }
+
+  join: task_snapshot {
+    type: left_outer
+    sql_on: ${task.task_id} = ${task_snapshot.task_id} ;;
+    relationship: one_to_many
   }
 }
 
-explore: user {}
+explore: user {
+  label: "Owner/Follower"
+  from: owner
+}

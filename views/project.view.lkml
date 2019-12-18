@@ -3,9 +3,11 @@ view: project {
   drill_fields: [project_id]
 
   dimension: project_id {
+    label: "Project ID"
     primary_key: yes
     type: string
     sql: ${TABLE}."PROJECT_ID" ;;
+    html: <a href={{url}} target="_blank"><font color="blue">{{ value }}</font></a> ;;
   }
 
   dimension: archived {
@@ -13,7 +15,7 @@ view: project {
     sql: ${TABLE}."ARCHIVED" ;;
   }
 
-  dimension_group: created {
+  dimension_group: created_at {
     type: time
     timeframes: [
       raw,
@@ -38,7 +40,6 @@ view: project {
       year
     ]
     convert_tz: no
-    datatype: date
     sql: ${TABLE}."DUE_DATE" ;;
   }
 
@@ -50,6 +51,7 @@ view: project {
   dimension: project {
     type: string
     sql: ${TABLE}."PROJECT" ;;
+    html: <a href={{url}} target="_blank"><font color="blue">{{ value }}</font></a> ;;
   }
 
   dimension: public {
@@ -68,6 +70,7 @@ view: project {
   }
 
   dimension: url {
+    label: "URL"
     type: string
     sql: ${TABLE}."URL" ;;
   }
@@ -78,7 +81,8 @@ view: project {
   }
 
   measure: count {
+    label: "Projects"
     type: count
-    drill_fields: [project_id, project_snapshot.count, project_user.count, task.count]
+    drill_fields: [project_id, project, project_snapshot.count, project_user.count, task.count]
   }
 }

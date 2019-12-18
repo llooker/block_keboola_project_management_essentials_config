@@ -1,6 +1,19 @@
 view: task_snapshot {
   sql_table_name: WORKSPACE_557790397.TASK_SNAPSHOT ;;
 
+  dimension: task_snapshot_id {
+    label: "Task Snapshot ID"
+    type:  string
+    sql: ${TABLE}."TASK_ID"||'_'||${TABLE}."SNAPSHOT_DATE" ;;
+    primary_key: yes
+  }
+
+  dimension: task_id {
+    type: string
+    hidden: yes
+    sql: ${TABLE}."TASK_ID" ;;
+  }
+
   dimension: assignee {
     type: string
     sql: ${TABLE}."ASSIGNEE" ;;
@@ -9,6 +22,21 @@ view: task_snapshot {
   dimension: assignee_change {
     type: string
     sql: ${TABLE}."ASSIGNEE_CHANGE" ;;
+  }
+
+  dimension_group: snapshot {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}."SNAPSHOT_DATE" ;;
   }
 
   dimension_group: due {
@@ -22,8 +50,21 @@ view: task_snapshot {
       year
     ]
     convert_tz: no
-    datatype: date
     sql: ${TABLE}."DUE_DATE" ;;
+  }
+
+  dimension_group: previous_due {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    sql: ${TABLE}."PREVIOUS_DUE_DATE" ;;
   }
 
   dimension: due_date_change {
@@ -56,19 +97,9 @@ view: task_snapshot {
     sql: ${TABLE}."PREVIOUS_ASSIGNEE" ;;
   }
 
-  dimension_group: previous_due {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}."PREVIOUS_DUE_DATE" ;;
+  dimension: section {
+    type: string
+    sql: ${TABLE}."SECTION" ;;
   }
 
   dimension: previous_section {
@@ -76,39 +107,14 @@ view: task_snapshot {
     sql: ${TABLE}."PREVIOUS_SECTION" ;;
   }
 
-  dimension: section {
+  dimension: section_change {
     type: string
-    sql: ${TABLE}."SECTION" ;;
-  }
-
-  dimension_group: snapshot {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}."SNAPSHOT_DATE" ;;
-  }
-
-  dimension: status_change {
-    type: string
-    sql: ${TABLE}."STATUS_CHANGE" ;;
-  }
-
-  dimension: task_id {
-    type: string
-    # hidden: yes
-    sql: ${TABLE}."TASK_ID" ;;
+    sql: ${TABLE}."SECTION_CHANGE" ;;
   }
 
   measure: count {
+    label: "Task Snapshots"
     type: count
-    drill_fields: [task.task_id]
+    drill_fields: [task.task_id, task.task]
   }
 }
