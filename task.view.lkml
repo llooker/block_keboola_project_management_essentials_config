@@ -67,6 +67,17 @@ view: task {
     sql: ${TABLE}."DUE_DATE" ;;
   }
 
+  dimension: is_past_due {
+    type: yesno
+    sql:  ${TABLE}."IS_PAST_DUE" = 'true' ;;
+  }
+
+  dimension: days_past_due_dimension {
+    hidden: yes
+    type: number
+    sql:  ${TABLE}."DAYS_PAST_DUE" ;;
+  }
+
   dimension: is_subtask {
     type: yesno
     sql: ${TABLE}."IS_SUBTASK" = 'true' ;;
@@ -89,9 +100,15 @@ view: task {
     sql: ${TABLE}."URL" ;;
   }
 
+  measure: days_past_due {
+    type: average
+    sql:  ${TABLE}."DAYS_PAST_DUE" ;;
+    value_format: "#,##0"
+  }
+
   measure: count {
     label: "Tasks"
     type: count
-    drill_fields: [project.project, task_id, task, task_snapshot.count, task_tag.count, task_user.count]
+    drill_fields: [project.project, task_id, task, days_past_due, task_snapshot.count, task_tag.count, task_user.count]
   }
 }
