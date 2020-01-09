@@ -2,7 +2,7 @@ view: owner {
   sql_table_name: "USER" ;;
 
   dimension: user_id {
-    label: "Member ID ID"
+    label: "Member ID"
     primary_key: yes
     type: string
     sql: ${TABLE}."USER_ID" ;;
