@@ -58,7 +58,7 @@ view: task_event {
   measure: count {
     label: "Events"
     type: count
-    drill_fields: [event_type, event, user, created_at_date, event_text]
+    drill_fields: [task.task, event_type, event, user, created_at_date, event_text]
   }
 
   measure: comments {
@@ -67,6 +67,6 @@ view: task_event {
       field: event
       value: "comment_added"
     }
-    drill_fields: [event_type, event, user, created_at_date, event_text]
+    drill_fields: [task.task, event_type, event, user, created_at_date, event_text]
   }
 }
