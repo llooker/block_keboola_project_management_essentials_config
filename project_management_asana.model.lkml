@@ -11,6 +11,7 @@ datagroup: project_management_asana_default_datagroup {
 persist_with: project_management_asana_default_datagroup
 
 explore: project {
+  label: "Projects & Tasks"
   join: project_member {
     type: left_outer
     sql_on: ${project.project_id} = ${project_member.project_id} ;;
