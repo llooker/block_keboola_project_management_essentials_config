@@ -18,9 +18,9 @@ explore: project {
     relationship: one_to_many
   }
 
-  join: owner {
+  join: member {
     type: left_outer
-    sql_on: ${project_member.user_id} = ${owner.user_id} ;;
+    sql_on: ${project_member.user_id} = ${member.user_id} ;;
     relationship: many_to_one
   }
 
@@ -68,6 +68,6 @@ explore: project {
 }
 
 explore: user {
-  label: "Owner/Follower"
-  from: owner
+  label: "Member/Follower"
+  from: member
 }

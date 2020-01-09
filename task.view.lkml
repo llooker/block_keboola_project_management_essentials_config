@@ -20,6 +20,13 @@ view: task {
     sql: ${TABLE}."ASSIGNEE" ;;
   }
 
+  dimension: assignee_type {
+    description: "Defines if assignee is employee or external person."
+    type: string
+    sql: ${TABLE}."ASSIGNEE_TYPE" ;;
+  }
+
+
   dimension: completed {
     type: yesno
     sql: ${TABLE}."COMPLETED" = 'true' ;;

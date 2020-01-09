@@ -48,6 +48,12 @@ view: project {
     sql: ${TABLE}."OWNER" ;;
   }
 
+  dimension: owner_type {
+    description: "Defines if owner is employee or external person."
+    type: string
+    sql: ${TABLE}."OWNER_TYPE" ;;
+  }
+
   dimension: project {
     type: string
     sql: ${TABLE}."PROJECT" ;;

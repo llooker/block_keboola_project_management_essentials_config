@@ -1,4 +1,4 @@
-view: owner {
+view: member {
   sql_table_name: "USER" ;;
 
   dimension: user_id {
