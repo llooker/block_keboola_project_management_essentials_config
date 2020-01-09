@@ -20,8 +20,8 @@ view: task_snapshot {
   }
 
   dimension: assignee_change {
-    type: string
-    sql: ${TABLE}."ASSIGNEE_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."ASSIGNEE_CHANGE" = 'true' ;;
   }
 
   dimension_group: snapshot {
@@ -68,8 +68,8 @@ view: task_snapshot {
   }
 
   dimension: due_date_change {
-    type: string
-    sql: ${TABLE}."DUE_DATE_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."DUE_DATE_CHANGE" = 'true' ;;
   }
 
   dimension: due_date_diff {
@@ -108,8 +108,8 @@ view: task_snapshot {
   }
 
   dimension: section_change {
-    type: string
-    sql: ${TABLE}."SECTION_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."SECTION_CHANGE" = 'true' ;;
   }
 
   measure: count {

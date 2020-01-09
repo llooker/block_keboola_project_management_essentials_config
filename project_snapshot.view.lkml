@@ -58,8 +58,8 @@ view: project_snapshot {
   }
 
   dimension: due_date_change {
-    type: string
-    sql: ${TABLE}."DUE_DATE_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."DUE_DATE_CHANGE" = 'true' ;;
   }
 
   dimension: due_date_diff {
@@ -88,8 +88,8 @@ view: project_snapshot {
   }
 
   dimension: owner_change {
-    type: string
-    sql: ${TABLE}."OWNER_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."OWNER_CHANGE" = 'true' ;;
   }
 
   dimension: previous_owner {
@@ -108,8 +108,8 @@ view: project_snapshot {
   }
 
   dimension: status_change {
-    type: string
-    sql: ${TABLE}."STATUS_CHANGE" ;;
+    type: yesno
+    sql: ${TABLE}."STATUS_CHANGE" = 'true' ;;
   }
 
   dimension: status_text {
