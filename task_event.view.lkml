@@ -49,6 +49,12 @@ view: task_event {
     sql: ${TABLE}."USER" ;;
   }
 
+  dimension: user_type {
+    description: "Defines if user is employee or external person."
+    type: string
+    sql: ${TABLE}."USER_TYPE" ;;
+  }
+
   dimension: user_id {
     hidden: yes
     type: string
