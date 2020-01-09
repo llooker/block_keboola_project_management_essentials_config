@@ -1,5 +1,5 @@
 view: project {
-  sql_table_name: WORKSPACE_557790397.PROJECT ;;
+  sql_table_name: PROJECT ;;
   drill_fields: [project_id]
 
   dimension: project_id {

@@ -1,5 +1,5 @@
 view: project_snapshot {
-  sql_table_name: WORKSPACE_557790397.PROJECT_SNAPSHOT ;;
+  sql_table_name: PROJECT_SNAPSHOT ;;
 
   dimension: project_snapshot_id {
     label: "Project Snapshot ID"

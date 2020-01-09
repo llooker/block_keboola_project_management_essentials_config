@@ -47,6 +47,18 @@ explore: project {
     relationship: one_to_many
   }
 
+  join: task_custom_field {
+    type: left_outer
+    sql_on: ${task.task_id} = ${task_custom_field.task_id} ;;
+    relationship: one_to_many
+  }
+
+  join: task_event {
+    type: left_outer
+    sql_on: ${task.task_id} = ${task_event.task_id} ;;
+    relationship: one_to_many
+  }
+
   join: task_snapshot {
     type: left_outer
     sql_on: ${task.task_id} = ${task_snapshot.task_id} ;;

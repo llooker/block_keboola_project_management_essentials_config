@@ -1,5 +1,5 @@
 view: project_member {
-  sql_table_name: WORKSPACE_557790397.PROJECT_USER ;;
+  sql_table_name: PROJECT_USER ;;
 
   dimension: project_id {
     type: string

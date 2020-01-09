@@ -1,5 +1,5 @@
 view: follower {
-  sql_table_name: WORKSPACE_557790397."USER" ;;
+  sql_table_name: "USER" ;;
 
   dimension: user_id {
     label: "Follower ID"

@@ -1,5 +1,5 @@
 view: task_follower {
-  sql_table_name: WORKSPACE_557790397.TASK_USER ;;
+  sql_table_name: TASK_USER ;;
 
   dimension: task_id {
     type: string

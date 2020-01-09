@@ -1,5 +1,5 @@
 view: task {
-  sql_table_name: WORKSPACE_557790397.TASK ;;
+  sql_table_name: TASK ;;
 
   dimension: task_id {
     label: "Task ID"

@@ -1,5 +1,5 @@
 view: task_tag {
-  sql_table_name: WORKSPACE_557790397.TASK_TAG ;;
+  sql_table_name: TASK_TAG ;;
 
   dimension: task_snapshot_id {
     label: "Task Tag ID"
