@@ -116,6 +116,21 @@ view: task {
   measure: count {
     label: "Tasks"
     type: count
-    drill_fields: [project.project, task_id, task, days_past_due, task_snapshot.count, task_tag.count, task_user.count]
+    drill_fields: [project_task_assignee*]
+  }
+
+  # ----- Sets of fields for drilling ------
+  set: project_task_assignee {
+    fields: [
+      project.project,
+      task_id,
+      task,
+      assignee,
+      assignee_type,
+      days_past_due,
+      task_snapshot.count,
+      task_tag.count,
+      task_user.count
+    ]
   }
 }

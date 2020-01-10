@@ -72,7 +72,7 @@ view: task_snapshot {
     sql: ${TABLE}."DUE_DATE_CHANGE" = 'true' ;;
   }
 
-  dimension: due_date_diff {
+  dimension: due_date_diff_dimension {
     type: number
     sql: ${TABLE}."DUE_DATE_DIFF" ;;
   }
@@ -115,6 +115,24 @@ view: task_snapshot {
   measure: count {
     label: "Task Snapshots"
     type: count
-    drill_fields: [task.task_id, task.task]
+    drill_fields: [project_task_section_assignee_date*]
+  }
+
+  measure: due_date_diff {
+    type: average
+    sql: ${due_date_diff_dimension} ;;
+    value_format: "#,##0"
+    drill_fields: [project_task_section_assignee_date*]
+  }
+
+  # ----- Sets of fields for drilling ------
+  set: project_task_section_assignee_date {
+    fields: [
+      project.project,
+      task.task,
+      section,
+      assignee,
+      due_date
+    ]
   }
 }
