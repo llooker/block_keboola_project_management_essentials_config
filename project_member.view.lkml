@@ -1,21 +1,7 @@
-view: project_member {
-  sql_table_name: PROJECT_USER ;;
+view: project_member_config {
+  extends: [project_member_core]
+  extension: required
 
-  dimension: project_id {
-    type: string
-    hidden: yes
-    sql: ${TABLE}."PROJECT_ID" ;;
-  }
+  # Add custom dimensions and measures here
 
-  dimension: user_id {
-    type: string
-    hidden: yes
-    sql: ${TABLE}."USER_ID" ;;
-  }
-
-  measure: count {
-    label: "Project Members"
-    type: count
-    drill_fields: [project.project_id, project.project, member.user_id]
-  }
 }

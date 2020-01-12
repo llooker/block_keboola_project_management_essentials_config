@@ -1,27 +1,7 @@
-view: task_tag {
-  sql_table_name: TASK_TAG ;;
+view: task_tag_config {
+  extends: [task_tag_core]
+  extension: required
 
-  dimension: task_snapshot_id {
-    label: "Task Tag ID"
-    type:  string
-    sql: ${TABLE}."TASK_ID"||'_'||${TABLE}."TAG" ;;
-    primary_key: yes
-  }
+  # Add custom dimensions and measures here
 
-  dimension: task_id {
-    type: string
-    hidden: yes
-    sql: ${TABLE}."TASK_ID" ;;
-  }
-
-  dimension: tag {
-    type: string
-    sql: ${TABLE}."TAG" ;;
-  }
-
-  measure: count {
-    label: "Tags"
-    type: count
-    drill_fields: [task.task_id, task.task, tag]
-  }
 }

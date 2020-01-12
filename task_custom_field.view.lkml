@@ -1,27 +1,7 @@
-view: task_custom_field {
-  sql_table_name: TASK_CUSTOM_FIELD ;;
-  drill_fields: [task_custom_field_id]
+view: task_custom_field_config {
+  extends: [task_custom_field_core]
+  extension: required
 
-  dimension: task_custom_field_id {
-    label: "Task Custom Field ID"
-    primary_key: yes
-    type: string
-    sql: ${TABLE}."TASK_CUSTOM_FIELD_ID" ;;
-  }
+  # Add custom dimensions and measures here
 
-  dimension: task_custom_field {
-    type: string
-    sql: ${TABLE}."TASK_CUSTOM_FIELD" ;;
-  }
-
-  dimension: task_custom_field_value {
-    type: string
-    sql: ${TABLE}."TASK_CUSTOM_FIELD_VALUE" ;;
-  }
-
-  dimension: task_id {
-    hidden: yes
-    type: string
-    sql: ${TABLE}."TASK_ID" ;;
-  }
 }
